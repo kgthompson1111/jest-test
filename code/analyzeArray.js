@@ -1,14 +1,19 @@
 function analyzeArray(array) {
-    if(array.length === 0) {
-        return null;
+    
+    let arrayLength;
+
+    function checkValidity(arr) {
+        for(var i = 0; i < arr.length; i++) {
+            if (typeof(arr[i]) != "number") {
+                return false;
+            } 
+        }
+        return true;
     }
 
     function compareFunction(a, b) {
         return a - b;
     }
-
-    let newArray = array.sort(compareFunction)
-    let arrayLength = newArray.length;
 
     function findAverage(arr) {
         let total = 0;
@@ -18,12 +23,18 @@ function analyzeArray(array) {
         let average = total/arrayLength;
         return average;
     }
-
-    return {
-        min: newArray[0],
-        max: newArray[newArray.length-1],
-        length: arrayLength,
-        average: findAverage(newArray)
+    
+    if(checkValidity(array)) {
+        let newArray = array.sort(compareFunction)
+        arrayLength = newArray.length;
+        return {
+            min: newArray[0],
+            max: newArray[newArray.length-1],
+            length: arrayLength,
+            average: findAverage(newArray)
+        }
+    } else if(!checkValidity(array)) {
+        return "error";
     }
 
 }
